@@ -38,7 +38,7 @@ function preload() {
 }
 
 function setup() {
-  canvas = createCanvas(704,1024);
+  canvas = createCanvas(1024,704);
   let realcanvas = canvas.canvas;
   realcanvas.addEventListener("touchstart", function (event) {
     event.preventDefault();
