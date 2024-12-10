@@ -69,14 +69,17 @@ async function captureFrame() {
 
   capturedImage = get(targetRect.x-30, targetRect.y, targetRect.w+60, targetRect.h);
   capturedImage.save("hand_contour_" + captureCount, "png");
-  captureCount++;
+  
 
   let base64Image = capturedImage.canvas.toDataURL("image/png");
 
   //  store Base64 image into localStorage 
   localStorage.setItem("capturedHandImage", base64Image);
 
+  captureCount++;
   isCapturing = false;
+
+  window.location.href = "https://miranda-zeng.github.io/CCCoding/1210color/index.html";
 }
 
 function draw() {

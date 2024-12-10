@@ -246,10 +246,7 @@ function mousePressed() {
   if (showResultBackground) {
     if (mouseX > width - 150 && mouseX < width - 50 &&
         mouseY > height - 50 && mouseY < height - 10) {
-      showResultBackground = false;
-      //reset
-      currentText = "";
-      charIndex = 0;
+          window.location.href = "https://miranda-zeng.github.io/CCCoding/1208handpose/";
     }
   }
 }
