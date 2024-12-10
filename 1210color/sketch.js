@@ -102,7 +102,7 @@ function draw() {
     
     if (resImg) {
       imageMode(CENTER);
-      image(resImg, width / 4, height / 2-100, 400, 400);
+      image(resImg, width / 4, height / 2, 400, 400);
     }
     
     if (charIndex < resultText.length) {
