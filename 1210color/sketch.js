@@ -80,7 +80,7 @@ function setup() {
   colorDesc.style('color', '#666');
 
   brushDesc = createP("Adjust Brush Size");
-  brushDesc.position(800, 125);
+  brushDesc.position(800, 140);
   brushDesc.style('font-size', '12px');
   brushDesc.style('color', '#666');
 
@@ -128,7 +128,7 @@ function draw() {
   subtitle.style('font-family', 'Georgia');
   subtitle.style('font-size', '24px');
   subtitle.style('color', '#4A4A4A');
-  
+
     if (resImg) {
       imageMode(CENTER);
       image(resImg, width / 4, height / 2-50, 400, 400);
