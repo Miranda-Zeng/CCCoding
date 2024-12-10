@@ -9,6 +9,7 @@ let colorPicker;
 let brushSize = 10;
 let sizeSlider;
 let analyzeButton, clearButton;
+let instruction, colorDesc, brushDesc;
 
 let resultText = "";
 let currentText = "";
@@ -67,18 +68,18 @@ function setup() {
   clearButton.position(655, 184);
   clearButton.mousePressed(restartCanvas);
 
-  let instruction = createP("Color your hand in any way you want 🌈");
+  instruction = createP("Color your hand in any way you want 🌈");
   instruction.position(100, 20);
   instruction.style('font-family', 'Georgia');
   instruction.style('font-size', '24px');
   instruction.style('color', '#4A4A4A');
 
-  let colorDesc = createP("Choose Your Palette");
+  colorDesc = createP("Choose Your Palette");
   colorDesc.position(800, 100);
   colorDesc.style('font-size', '12px');
   colorDesc.style('color', '#666');
 
-  let brushDesc = createP("Adjust Brush Size");
+  brushDesc = createP("Adjust Brush Size");
   brushDesc.position(800, 125);
   brushDesc.style('font-size', '12px');
   brushDesc.style('color', '#666');
@@ -99,7 +100,7 @@ function draw() {
       drawingLayer.noErase();
       drawingLayer.strokeWeight(brushSize);
       drawingLayer.stroke(colorPicker.color());
-      drawingLayer.line(mouseX, mouseY, pmouseX, pmouseY);
+      drawingLayer.line(mouseX-100, mouseY-100, pmouseX-100, pmouseY-100);
       // for (let touch of touches){
       // drawingLayer.line(touch.x, touch.y, pTouch.x, ptouch.y);
       // }
@@ -108,6 +109,9 @@ function draw() {
     sizeSlider.show();
     analyzeButton.show();
     clearButton.show();
+    instruction.show();
+    colorDesc.show();
+    brushDesc.show();
 
   } else {
     background(resultBackgroundColor);
@@ -115,10 +119,19 @@ function draw() {
     sizeSlider.hide();
     analyzeButton.hide();
     clearButton.hide();
+    instruction.hide();
+    colorDesc.hide();
+    brushDesc.hide();
     
+  let subtitle = createP("Story of Your Past Life");
+  subtitle.position(100, 20);
+  subtitle.style('font-family', 'Georgia');
+  subtitle.style('font-size', '24px');
+  subtitle.style('color', '#4A4A4A');
+  
     if (resImg) {
       imageMode(CENTER);
-      image(resImg, width / 4, height / 2, 400, 400);
+      image(resImg, width / 4, height / 2-50, 400, 400);
     }
     
     if (charIndex < resultText.length) {
