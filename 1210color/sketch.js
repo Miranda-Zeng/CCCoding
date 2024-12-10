@@ -8,6 +8,7 @@ let canvas;
 let colorPicker;
 let brushSize = 10;
 let sizeSlider;
+let analyzeButton, clearButton;
 
 let resultText = "";
 let currentText = "";
@@ -21,7 +22,8 @@ let shortResultText = ""; // For the image generation input
 let workflow;
 let comfy;
 let resImg;
-
+let showResultBackground = false;
+let resultBackgroundColor;
 function preload() {
   // img_1 = loadImage("1.jpg");
   let base64Image = localStorage.getItem("capturedHandImage");
@@ -50,18 +52,18 @@ function setup() {
   realcanvas.addEventListener("touchcancel", function (event) {
     event.preventDefault();
   });
-
+  resultBackgroundColor = color(255, 255, 200);
   drawingLayer = createGraphics(430, 480);
   colorPicker = createColorPicker("white");
   colorPicker.position(605, 10);
   sizeSlider = createSlider(1, 50, brushSize);
   sizeSlider.position(605, 48);
 
-  let analyzeButton = createButton("Discover Past Life 🔮");
+  analyzeButton = createButton("Discover Past Life 🔮");
   analyzeButton.position(605, 118);
   analyzeButton.mousePressed(analyzePastLife);
 
-  let clearButton = createButton("Restart");
+  clearButton = createButton("Restart");
   clearButton.position(605, 84);
   clearButton.mousePressed(restartCanvas);
 
@@ -70,40 +72,58 @@ function setup() {
 }
 
 function draw() {
-  background(255, 255, 255);
-  image(img_1, 0, 0, 430, 480);
-  image(drawingLayer, 0, 0);
+  if (!showResultBackground) {
+    background(255, 255, 255);
+    image(img_1, 0, 0, 430, 480);
+    image(drawingLayer, 0, 0);
 
-  brushSize = sizeSlider.value();
+    brushSize = sizeSlider.value();
 
-  if (mouseIsPressed) {
-    drawingLayer.noErase();
-    drawingLayer.strokeWeight(brushSize);
-    drawingLayer.stroke(colorPicker.color());
-    drawingLayer.line(mouseX, mouseY, pmouseX, pmouseY);
-    // for (let touch of touches){
-    // drawingLayer.line(touch.x, touch.y, pTouch.x, ptouch.y);
-    // }
-  }
-
-  if (charIndex < resultText.length) {
-    frameCounter++;
-    if (frameCounter % typingSpeed == 0) {
-      currentText += resultText.charAt(charIndex);
-      charIndex++;
+    if (mouseIsPressed) {
+      drawingLayer.noErase();
+      drawingLayer.strokeWeight(brushSize);
+      drawingLayer.stroke(colorPicker.color());
+      drawingLayer.line(mouseX, mouseY, pmouseX, pmouseY);
+      // for (let touch of touches){
+      // drawingLayer.line(touch.x, touch.y, pTouch.x, ptouch.y);
+      // }
     }
-  }
+    colorPicker.show();
+    sizeSlider.show();
+    analyzeButton.show();
+    clearButton.show();
 
-  fill(0);
-  textFont(`Courier`);
-  // textAlign(LEFT, TOP);
-  textAlign(CENTER, TOP);
-  textSize(16);
-  text(currentText, 610, 150, 360, height - 150);
-
-  // Display generated image if available
-  if (resImg) {
-    image(resImg, 0, 420, 600, 280);
+  } else {
+    background(resultBackgroundColor);
+    colorPicker.hide();
+    sizeSlider.hide();
+    analyzeButton.hide();
+    clearButton.hide();
+    
+    if (resImg) {
+      imageMode(CENTER);
+      image(resImg, width / 4, height / 2-100, 400, 400);
+    }
+    
+    if (charIndex < resultText.length) {
+      frameCounter++;
+      if (frameCounter % typingSpeed == 0) {
+        currentText += resultText.charAt(charIndex);
+        charIndex++;
+      }
+    }
+    
+    fill(0);
+    textFont("Courier");
+    textAlign(LEFT, TOP);
+    textSize(16);
+    text(currentText, width / 2, 100, width / 2 - 50, height - 200);
+    
+    fill(100, 200, 255);
+    rect(width - 150, height - 50, 100, 40);
+    fill(0);
+    textAlign(CENTER, CENTER);
+    text("Back", width - 100, height - 30);
   }
 }
 
@@ -175,6 +195,7 @@ function gotResults(results) {
   currentText = ""; // Reset the typewriter effect
   charIndex = 0; // Start typing from the beginning
   console.log("First result (long):", resultText);
+  showResultBackground = true;
 
   // Second request: Generate a short description for the image
   requestOAI(
@@ -216,6 +237,19 @@ function gotImage(data, err) {
   console.log("Image generated:", data);
   if (data.length > 0) {
     resImg = loadImage(data[0].src);
+    
   }
 }
 
+function mousePressed() {
+
+  if (showResultBackground) {
+    if (mouseX > width - 150 && mouseX < width - 50 &&
+        mouseY > height - 50 && mouseY < height - 10) {
+      showResultBackground = false;
+      //reset
+      currentText = "";
+      charIndex = 0;
+    }
+  }
+}
