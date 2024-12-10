@@ -114,7 +114,7 @@ function draw() {
     }
     
     fill(0);
-    textFont("Courier");
+    textFont("Georgia");
     textAlign(LEFT, TOP);
     textSize(16);
     text(currentText, width / 2, 100, width / 2 - 50, height - 200);
