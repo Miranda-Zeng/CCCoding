@@ -74,12 +74,12 @@ function setup() {
   instruction.style('color', '#4A4A4A');
 
   let colorDesc = createP("Choose Your Palette");
-  colorDesc.position(785, 80);
+  colorDesc.position(800, 100);
   colorDesc.style('font-size', '12px');
   colorDesc.style('color', '#666');
 
   let brushDesc = createP("Adjust Brush Size");
-  brushDesc.position(785, 118);
+  brushDesc.position(800, 125);
   brushDesc.style('font-size', '12px');
   brushDesc.style('color', '#666');
 
