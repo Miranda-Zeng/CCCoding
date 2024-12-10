@@ -67,6 +67,22 @@ function setup() {
   clearButton.position(655, 184);
   clearButton.mousePressed(restartCanvas);
 
+  let instruction = createP("Color your hand in any way you want 🌈");
+  instruction.position(100, 20);
+  instruction.style('font-family', 'Georgia');
+  instruction.style('font-size', '24px');
+  instruction.style('color', '#4A4A4A');
+
+  let colorDesc = createP("Choose Your Palette");
+  colorDesc.position(785, 80);
+  colorDesc.style('font-size', '12px');
+  colorDesc.style('color', '#666');
+
+  let brushDesc = createP("Adjust Brush Size");
+  brushDesc.position(785, 118);
+  brushDesc.style('font-size', '12px');
+  brushDesc.style('color', '#666');
+
   // Initialize ComfyUI helper
   comfy = new ComfyUiP5Helper("https://gpu1.gohai.xyz:8188");
 }
