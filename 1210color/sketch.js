@@ -218,3 +218,11 @@ function gotImage(data, err) {
     resImg = loadImage(data[0].src);
   }
 }
+
+function redirectToResults(poem, image) {
+  // Redirect to results.html with data as URL parameters
+  const poemEncoded = encodeURIComponent(poem);
+  const imageEncoded = encodeURIComponent(image);
+
+  window.location.href = `results.html?poem=${poemEncoded}&image=${imageEncoded}`;
+}
