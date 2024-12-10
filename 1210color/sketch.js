@@ -55,16 +55,16 @@ function setup() {
   resultBackgroundColor = color(255, 255, 200);
   drawingLayer = createGraphics(430, 480);
   colorPicker = createColorPicker("white");
-  colorPicker.position(605, 10);
+  colorPicker.position(655, 110);
   sizeSlider = createSlider(1, 50, brushSize);
-  sizeSlider.position(605, 48);
+  sizeSlider.position(655, 148);
 
-  analyzeButton = createButton("Discover Past Life 🔮");
-  analyzeButton.position(605, 118);
+  analyzeButton = createButton("Discover Your Past Life 🔮");
+  analyzeButton.position(655, 218);
   analyzeButton.mousePressed(analyzePastLife);
 
   clearButton = createButton("Restart");
-  clearButton.position(605, 84);
+  clearButton.position(655, 184);
   clearButton.mousePressed(restartCanvas);
 
   // Initialize ComfyUI helper
