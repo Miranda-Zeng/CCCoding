@@ -74,8 +74,8 @@ function setup() {
 function draw() {
   if (!showResultBackground) {
     background(255, 255, 255);
-    image(img_1, 0, 0, 430, 480);
-    image(drawingLayer, 0, 0);
+    image(img_1, 100, 100, 430, 480);
+    image(drawingLayer, 100, 100);
 
     brushSize = sizeSlider.value();
 
