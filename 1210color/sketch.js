@@ -8,7 +8,7 @@ let canvas;
 let colorPicker;
 let brushSize = 10;
 let sizeSlider;
-let analyzeButton, clearButton, revealButton;
+let analyzeButton, clearButton, revealButton, reloadButton;
 let instruction, colorDesc, brushDesc;
 
 let resultText = "";
@@ -69,8 +69,13 @@ function setup() {
   clearButton.mousePressed(restartCanvas);
 
   revealButton = createButton("Reveal Full Story");
-  revealButton.position(width/2 - 100, height - 200);
+  revealButton.position(width - 150, height - 200);
   revealButton.mousePressed(revealFullStory);
+
+  reloadButton = createButton("Back");
+  reloadButton.position(width - 150, height - 50);
+  reloadButton.size(100, 40);
+  reloadButton.mousePressed(resetAndReload);
 
   instruction = createP("Color your hand in any way you want 🌈");
   instruction.position(100, 20);
@@ -117,6 +122,7 @@ function draw() {
     colorDesc.show();
     brushDesc.show();
     revealButton.hide();
+    reloadButton.hide();
 
   } else {
     background(resultBackgroundColor);
@@ -128,6 +134,8 @@ function draw() {
     colorDesc.hide();
     brushDesc.hide();
     revealButton.show();
+    reloadButton.show();
+
     let subtitle = createP("Story of Your Past Life");
     subtitle.position(100, 20);
     subtitle.style('font-family', 'Georgia');
@@ -153,11 +161,6 @@ function draw() {
     textSize(16);
     text(currentText, width / 2, 100, width / 2 - 50, height - 200);
     
-    fill(100, 200, 255);
-    rect(width - 150, height - 50, 100, 40);
-    fill(0);
-    textAlign(CENTER, CENTER);
-    text("Back", width - 100, height - 30);
   }
 }
 
@@ -288,7 +291,7 @@ function revealFullStory() {
   charIndex = resultText.length;
 }
 
-function resetAllState() {
+function resetAndReload() {
   // clear localStorage
   // localStorage.removeItem('capturedHandImage');
   
@@ -297,18 +300,11 @@ function resetAllState() {
   charIndex = 0;
   resImg = null;
   showResultBackground = false;
+  
   drawingLayer.clear();
+
+  window.location.href = "https://miranda-zeng.github.io/CCCoding/1208handpose/" + 
+                         "?timestamp=" + new Date().getTime();
 }
 
-function mousePressed() {
 
-  if (showResultBackground) {
-    if (mouseX > width - 150 && mouseX < width - 50 &&
-        mouseY > height - 50 && mouseY < height - 10) {
-          resetAllState()
-          // window.location.href = "https://miranda-zeng.github.io/CCCoding/1208handpose/";
-          window.location.reload(true);
-    }
-  }
-
-}
