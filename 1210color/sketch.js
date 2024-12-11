@@ -8,7 +8,7 @@ let canvas;
 let colorPicker;
 let brushSize = 10;
 let sizeSlider;
-let analyzeButton, clearButton;
+let analyzeButton, clearButton, revealButton;
 let instruction, colorDesc, brushDesc;
 
 let resultText = "";
@@ -68,6 +68,10 @@ function setup() {
   clearButton.position(655, 184);
   clearButton.mousePressed(restartCanvas);
 
+  revealButton = createButton("Reveal Full Story");
+  revealButton.position(width/2 - 100, height - 200);
+  revealButton.mousePressed(revealFullStory);
+
   instruction = createP("Color your hand in any way you want 🌈");
   instruction.position(100, 20);
   instruction.style('font-family', 'Georgia');
@@ -112,6 +116,7 @@ function draw() {
     instruction.show();
     colorDesc.show();
     brushDesc.show();
+    revealButton.hide();
 
   } else {
     background(resultBackgroundColor);
@@ -122,7 +127,7 @@ function draw() {
     instruction.hide();
     colorDesc.hide();
     brushDesc.hide();
-    
+    revealButton.show();
     let subtitle = createP("Story of Your Past Life");
     subtitle.position(100, 20);
     subtitle.style('font-family', 'Georgia');
@@ -277,9 +282,15 @@ function gotImage(data, err) {
     
   }
 }
+
+function revealFullStory() {
+  currentText = resultText;
+  charIndex = resultText.length;
+}
+
 function resetAllState() {
   // clear localStorage
-  localStorage.removeItem('capturedHandImage');
+  // localStorage.removeItem('capturedHandImage');
   
   resultText = "";
   currentText = "";
