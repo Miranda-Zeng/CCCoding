@@ -73,7 +73,7 @@ function setup() {
   revealButton.mousePressed(revealFullStory);
 
   reloadButton = createButton("Back");
-  reloadButton.position(width - 150, height - 50);
+  reloadButton.position(width - 150, height - 170);
   reloadButton.size(100, 40);
   reloadButton.mousePressed(resetAndReload);
 
