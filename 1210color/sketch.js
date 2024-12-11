@@ -171,10 +171,18 @@ function analyzePastLife() {
       messages: [
         {
           role: "user",
-          content: `Based on these colors (${colorData}), divine the user's past life. The past life can be anything — an animal, a plant, an object, or a mythical creature, avoid aligning red with phoneix all the time. Then, write a short poem about their past life, focusing on their experiences and symbolic meaning. Start with "You were...". Make the narrative mysterious, imaginative, and under 150 words.`,
-        },
+          content: `
+          You are a creative storyteller with the task of interpreting the user's past life based on these colors: (${colorData}).
+          - The past life can be anything: an animal, plant, object, mythical creature, or even a natural element like the wind or sea.
+          - Focus on adding variety in interpretations. Do not overly rely on common archetypes like "phoenix" or "dragon."
+          - Incorporate sensory details (e.g., sights, sounds, textures) and emotional tones (e.g., joy, sorrow, mystery).
+          - Begin with "You were..." and conclude with a symbolic or reflective line connecting the past to the present.
+          - Keep the response imaginative, evocative, and under 150 words.
+          - Ensure each response feels unique and aligned with the chosen colors.`     },
       ],
-      temperature: 0.7,
+      temperature: 0.8,
+      presence_penalty: 1.0, 
+      frequency_penalty: 0.5, 
     },
     gotResults
   );
