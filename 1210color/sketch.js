@@ -277,13 +277,26 @@ function gotImage(data, err) {
     
   }
 }
+function resetAllState() {
+  // clear localStorage
+  localStorage.removeItem('capturedHandImage');
+  
+  resultText = "";
+  currentText = "";
+  charIndex = 0;
+  resImg = null;
+  showResultBackground = false;
+  drawingLayer.clear();
+}
 
 function mousePressed() {
 
   if (showResultBackground) {
     if (mouseX > width - 150 && mouseX < width - 50 &&
         mouseY > height - 50 && mouseY < height - 10) {
-          window.location.href = "https://miranda-zeng.github.io/CCCoding/1208handpose/";
+          resetAllState()
+          // window.location.href = "https://miranda-zeng.github.io/CCCoding/1208handpose/";
+          window.location.reload(true);
     }
   }
 
