@@ -123,12 +123,19 @@ function draw() {
     colorDesc.hide();
     brushDesc.hide();
     
-  let subtitle = createP("Story of Your Past Life");
-  subtitle.position(100, 20);
-  subtitle.style('font-family', 'Georgia');
-  subtitle.style('font-size', '24px');
-  subtitle.style('color', '#4A4A4A');
-
+    let subtitle = createP("Story of Your Past Life");
+    subtitle.position(100, 20);
+    subtitle.style('font-family', 'Georgia');
+    subtitle.style('font-size', '24px');
+    subtitle.style('color', '#4A4A4A');
+    Push();
+    fill(200, 230, 255);
+    rect(width/2 - 100, height - 50, 200, 40);
+    fill(0);
+    textAlign(CENTER, CENTER);
+    text("Reveal Full Story", width/2, height - 30);
+    Pop();
+  
     if (resImg) {
       imageMode(CENTER);
       image(resImg, width / 4, height / 2-50, 400, 400);
@@ -277,5 +284,12 @@ function mousePressed() {
         mouseY > height - 50 && mouseY < height - 10) {
           window.location.href = "https://miranda-zeng.github.io/CCCoding/1208handpose/";
     }
+
+    if (mouseX > width/2 - 100 && mouseX < width/2 + 100 &&
+          mouseY > height - 50 && mouseY < height - 10) {
+        currentText = resultText;
+        charIndex = resultText.length;
+      }
   }
+
 }
