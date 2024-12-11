@@ -80,10 +80,15 @@ async function captureFrame() {
   isCapturing = false;
 
   window.location.href = "https://miranda-zeng.github.io/CCCoding/1210color/";
-  setTimeout(() => {
-    window.location.replace("https://miranda-zeng.github.io/CCCoding/1210color/");
-    window.open("https://miranda-zeng.github.io/CCCoding/1210color/", "_self");
-  }, 100);
+  let linkElement = createA(
+    "https://miranda-zeng.github.io/CCCoding/1210color/", 
+    "Go to Past Life Analysis", 
+    "_self"
+  );
+  linkElement.position(width/2 - 100, height/2);
+  linkElement.style('font-size', '20px');
+  linkElement.style('background-color', 'lightblue');
+  linkElement.style('padding', '10px');
 }
 
 function draw() {
