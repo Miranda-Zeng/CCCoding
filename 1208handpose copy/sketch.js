@@ -61,6 +61,52 @@ function isRectFit(rect1, rect2) {
     heightDiff < sizeThreshold
   );
 }
+function calculateFingerToPalmRatio() {
+  if (hands.length === 0) {
+    console.log("No hands detected");
+    return null;
+  }
+
+  let hand = hands[0];
+
+  try {
+    let wrist = hand.keypoints.find(kp => kp.name === 'wrist');
+    let thumbTip = hand.keypoints.find(kp => kp.name === 'thumb_tip');
+    let indexTip = hand.keypoints.find(kp => kp.name === 'index_finger_tip');
+    let middleTip = hand.keypoints.find(kp => kp.name === 'middle_finger_tip');
+    let ringTip = hand.keypoints.find(kp => kp.name === 'ring_finger_tip');
+    let pinkyTip = hand.keypoints.find(kp => kp.name === 'pinky_tip');
+
+    if (!wrist || !thumbTip || !indexTip || !middleTip || !ringTip || !pinkyTip) {
+      console.log("Missing hand keypoints");
+      return null;
+    }
+
+    let palmSize = dist(wrist.position.x, wrist.position.y, middleTip.position.x, middleTip.position.y);
+
+    let fingerLengths = [
+      dist(wrist.position.x, wrist.position.y, thumbTip.position.x, thumbTip.position.y),
+      dist(wrist.position.x, wrist.position.y, indexTip.position.x, indexTip.position.y),
+      dist(wrist.position.x, wrist.position.y, middleTip.position.x, middleTip.position.y),
+      dist(wrist.position.x, wrist.position.y, ringTip.position.x, ringTip.position.y),
+      dist(wrist.position.x, wrist.position.y, pinkyTip.position.x, pinkyTip.position.y)
+    ];
+
+    let avgFingerLength = fingerLengths.reduce((a, b) => a + b, 0) / fingerLengths.length;
+    let ratio = avgFingerLength / palmSize;
+
+    return { 
+      fingerLengths, 
+      palmSize, 
+      avgFingerLength, 
+      ratio 
+    };
+
+  } catch (error) {
+    console.error("Error calculating hand ratio:", error);
+    return null;
+  }
+}
 
 async function captureFrame() {
   isCapturing = true;
@@ -75,6 +121,20 @@ async function captureFrame() {
 
   //  store Base64 image into localStorage 
   localStorage.setItem("capturedHandImage", base64Image);
+
+  let handData = calculateFingerToPalmRatio();
+
+  if (handData) {
+    let ratioData = { 
+      finger_to_palm_ratio: handData.ratio,
+      fingerLengths: handData.fingerLengths,
+      palmSize: handData.palmSize
+    };
+    let ratioJson = JSON.stringify(ratioData);
+    let ratioBase64 = btoa(ratioJson);
+    localStorage.setItem('handRatioData', ratioBase64);
+  }
+
 
   captureCount++;
   isCapturing = false;
