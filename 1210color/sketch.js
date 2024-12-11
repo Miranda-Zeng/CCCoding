@@ -133,12 +133,6 @@ function draw() {
       imageMode(CENTER);
       image(resImg, width / 4, height / 2-50, 400, 400);
     }
-    
-    fill(200, 230, 255);
-    rect(width/2 - 100, height - 50, 200, 40);
-    fill(0);
-    textAlign(CENTER, CENTER);
-    text("Reveal Full Story", width/2, height - 30);
    
     if (charIndex < resultText.length) {
       frameCounter++;
@@ -283,12 +277,6 @@ function mousePressed() {
         mouseY > height - 50 && mouseY < height - 10) {
           window.location.href = "https://miranda-zeng.github.io/CCCoding/1208handpose/";
     }
-
-    if (mouseX > width/2 - 100 && mouseX < width/2 + 100 &&
-          mouseY > height - 50 && mouseY < height - 10) {
-        currentText = resultText;
-        charIndex = resultText.length;
-      }
   }
 
 }
