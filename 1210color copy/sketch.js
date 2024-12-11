@@ -17,6 +17,9 @@ let charIndex = 0;
 let typingSpeed = 2;
 let frameCounter = 0;
 
+let handRatio = null;
+let handData = null;
+
 let shortResultText = ""; // For the image generation input
 
 // ComfyUI-related variables
@@ -33,6 +36,17 @@ function preload() {
     img_1 = loadImage(base64Image);
   } else {
     img_1 = loadImage("1.jpg");
+  }
+
+  let ratioBase64 = localStorage.getItem('handRatioData');
+  if (ratioBase64) {
+    try {
+      let ratioJson = atob(ratioBase64);
+      handData = JSON.parse(ratioJson);
+      handRatio = handData.finger_to_palm_ratio;
+    } catch (error) {
+      console.error("Error parsing hand ratio data:", error);
+    }
   }
 
   workflow = loadJSON("workflow_api.json"); // Load ComfyUI workflow JSON
@@ -180,7 +194,9 @@ function analyzePastLife() {
         {
           role: "user",
           content: `
-          You are a creative storyteller with the task of interpreting the user's past life based on these colors: (${colorData}).
+          You are a creative storyteller with the task of interpreting the user's past life based on these colors: (${colorData})and Hand Proportion Ratio: ${handRatio ? handRatio.toFixed(2) : 'N/A'}
+          Finger Lengths: ${handData && handData.fingerLengths ? handData.fingerLengths.map(l => l.toFixed(2)).join(', ') : 'N/A'}
+          Palm Size: ${handData && handData.palmSize ? handData.palmSize.toFixed(2) : 'N/A'}.
           - The past life can be anything: an animal, plant, object, mythical creature, or even a natural element like the wind or sea.
           - Focus on adding variety in interpretations. Do not overly rely on common archetypes like "phoenix" or "dragon."
           - Incorporate sensory details (e.g., sights, sounds, textures) and emotional tones (e.g., joy, sorrow, mystery).
