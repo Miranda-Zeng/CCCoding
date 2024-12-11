@@ -80,6 +80,10 @@ async function captureFrame() {
   isCapturing = false;
 
   window.location.href = "https://miranda-zeng.github.io/CCCoding/1210color/";
+  setTimeout(() => {
+    window.location.replace("https://miranda-zeng.github.io/CCCoding/1210color/");
+    window.open("https://miranda-zeng.github.io/CCCoding/1210color/", "_self");
+  }, 100);
 }
 
 function draw() {
