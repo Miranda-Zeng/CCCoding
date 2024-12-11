@@ -139,9 +139,9 @@ async function captureFrame() {
   captureCount++;
   isCapturing = false;
 
-  window.location.href = "https://miranda-zeng.github.io/CCCoding/1210color/";
+  window.location.href = "https://miranda-zeng.github.io/CCCoding/1210color%20copy/";
   let linkElement = createA(
-    "https://miranda-zeng.github.io/CCCoding/1210color/", 
+    "https://miranda-zeng.github.io/CCCoding/1210color%20copy/", 
     "Go to Past Life Analysis", 
     "_self"
   );
