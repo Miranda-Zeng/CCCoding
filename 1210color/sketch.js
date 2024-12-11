@@ -14,7 +14,7 @@ let instruction, colorDesc, brushDesc;
 let resultText = "";
 let currentText = "";
 let charIndex = 0;
-let typingSpeed = 5;
+let typingSpeed = 2;
 let frameCounter = 0;
 
 let shortResultText = ""; // For the image generation input
